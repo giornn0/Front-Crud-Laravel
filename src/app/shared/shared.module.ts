@@ -5,7 +5,6 @@ import { ButtonActionsComponent } from './components/button-actions/button-actio
 import { MaterialModule } from '../core/material.module';
 import { DialogComponent } from './components/dialog/dialog.component';
 import { SelectClickOutside } from '../directives/selec&&clickoutisde.directive';
-import { AddressFormComponent } from './components/address-form/address-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 
@@ -15,7 +14,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     ButtonActionsComponent,
     DialogComponent,
     SelectClickOutside,
-    AddressFormComponent,
     SpinnerComponent,
   ],
   imports: [CommonModule, MaterialModule, ReactiveFormsModule],
@@ -23,7 +21,6 @@ import { SpinnerComponent } from './components/spinner/spinner.component';
     AlertsComponent,
     ButtonActionsComponent,
     SelectClickOutside,
-    AddressFormComponent,
     SpinnerComponent
   ],
 })

@@ -1,21 +1,13 @@
 import { NgModule } from '@angular/core';
-import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { FlexLayoutComponent } from './flex-layout/flex-layout.component';
-import { MaterialModule } from './material.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
-import { RouterModule } from '@angular/router';
-import { SharedModule } from '../shared/shared.module';
+import { SideNavComponent } from './components/side-nav/side-nav.component';
+import { MaterialModule } from './material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [FlexLayoutComponent, SideNavComponent, HeaderComponent],
-  imports: [MaterialModule, FontAwesomeModule, RouterModule, SharedModule],
-  providers: [],
-  exports: [
-    FlexLayoutComponent,
-    MaterialModule,
-    SideNavComponent,
-    HeaderComponent,
-  ],
+  declarations: [HeaderComponent, SideNavComponent],
+  imports: [CommonModule,MaterialModule, ReactiveFormsModule],
+  exports: [HeaderComponent, SideNavComponent],
 })
 export class CoreModule {}

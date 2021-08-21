@@ -3,48 +3,42 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthenticationInterceptor } from './interceptor/authentication.interceptor';
+import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
+import { MaterialModule } from './core/material.module';
 import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { MaterialModule } from './core/material.module';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthLoggedInterceptor } from './core/interceptors/auth-logged.interceptor';
-import { AlertsInterceptor } from './core/interceptors/alerts.interceptor';
-import { SharedModule } from './shared/shared.module';
-import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    CoreModule,
-    RouterModule,
     MaterialModule,
-    AppRoutingModule,
-    FontAwesomeModule,
     HttpClientModule,
+    CoreModule,
     SharedModule,
+    RouterModule,
+    AppRoutingModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AuthLoggedInterceptor,
-      multi: true,
+      useClass: AuthenticationInterceptor,
+      multi:true
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: AlertsInterceptor,
-      multi: true,
-    },
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: LoaderInterceptor,
-      multi: true,
-    },
+      useClass:LoaderInterceptor,
+      multi:true
+    }
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
-export class AppModule {}
+export class AppModule { }
