@@ -11,11 +11,10 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app.routing.module';
+import { AlertsInterceptor } from './core/interceptors/alerts.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -24,21 +23,26 @@ import { AppRoutingModule } from './app.routing.module';
     CoreModule,
     SharedModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthenticationInterceptor,
-      multi:true
+      multi: true,
     },
     {
       provide: HTTP_INTERCEPTORS,
-      useClass:LoaderInterceptor,
+      useClass: LoaderInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AlertsInterceptor,
       multi:true
-    }
+    },
   ],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

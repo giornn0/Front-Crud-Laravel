@@ -16,18 +16,17 @@
       ><mat-card-title clas="title">Welcome </mat-card-title></mat-card-header
     >
     <mat-card-content fxFlex="40">
-      <form [formGroup]="user" (ngSubmit)="tryLogin()" id="ngUserForm">
+      <form [formGroup]="user" (ngSubmit)="tryLogin()" id="ngemailForm">
         <div fxLayout="column">
           <mat-form-field class="form-field" fxFlex="100">
-            <mat-label>User</mat-label>
+            <mat-label>Email</mat-label>
             <input
               matInput
-              formControlName="user"
-              placeholder="User/Email"
+              formControlName="email"
               type="text"
             />
-            <mat-error *ngIf="invalid('user')"
-              >Please, fill the user field</mat-error
+            <mat-error *ngIf="invalid('email')"
+              >Please, fill the email field</mat-error
             >
           </mat-form-field>
           <mat-form-field class="form-field" fxFlex="100">
@@ -35,7 +34,6 @@
             <input
               matInput
               formControlName="password"
-              placeholder="Password"
               type="password"
             />
             <mat-error *ngIf="invalid('password')"
@@ -53,7 +51,7 @@
           mat-raised-button
           type="submit"
           color="primary"
-          form="ngUserForm"
+          form="ngemailForm"
         >
           Log
         </button>

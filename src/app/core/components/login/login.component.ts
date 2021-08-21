@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { Router } from '@angular/router';
 import { LoginService } from '../../http/login/login.service';
 import { UserService } from '../../services/user/user.service';
+import { Usuario } from '../../../shared/models/usuario.model';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ import { UserService } from '../../services/user/user.service';
 })
 export class LoginComponent implements OnInit {
   mail: string = '';
-
+  usuario: Usuario = {} as Usuario
   constructor(
     private logService: LoginService,
     private fBuilder: FormBuilder,
@@ -22,18 +23,15 @@ export class LoginComponent implements OnInit {
   ) {}
 
   user: FormGroup = this.fBuilder.group({
-    user: ['', [Validators.required]],
+    email: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   tryLogin() {
     this.logService.login(this.user.value).subscribe((res) => {
-      localStorage.setItem('token', res.logged.token);
-      sessionStorage.setItem('role', res.logged.role);
-      sessionStorage.setItem('id', res.logged.id)
-      this.userService.userLogged();
+      console.log(res)
       this.router.navigate(['']);
     });
   }
