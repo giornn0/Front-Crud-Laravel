@@ -1,0 +1,16 @@
+.alert-danger {
+  background-color: #ee7a7a; /* Red */
+}
+.alert-success {
+  background-color: #98f3b7;
+}
+.alert {
+  padding: 15px;
+  border-color: var(--main-color5);
+  color: var(--main-color2);
+  margin-bottom: 15px;
+  text-align: center;
+  border-radius: 0.2em;
+  width: fit-content;
+  height: fit-content;
+}

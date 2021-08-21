@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Recovery Mail</h1>
+<div mat-dialog-content [formGroup]="recovery">
+    <p>Please input your registered mail.</p>
+    <mat-form-field appearance="fill">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="mail" >
+    </mat-form-field>
+    <mat-error *ngIf="recovery.controls['mail'].touched && recovery.controls['mail'].invalid">The email is wrong.</mat-error>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data.mail" cdkFocusInitial [disabled]="recovery.invalid">Ok</button>
+</div>

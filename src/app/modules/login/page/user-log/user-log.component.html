@@ -1,0 +1,73 @@
+<div
+  fxLayout="row"
+  style="width: 100%; height: 60vh"
+  fxLayoutAlign="center center"
+>
+  <mat-card
+    fxFlex="30"
+    fxFlex.xs="80"
+    fxFlex.sm="80"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    style="width: 100%;height:fit-content"
+
+  >
+    <mat-card-header fxFlex="30"  fxLayoutAlign="center center"
+      ><mat-card-title clas="title">Welcome </mat-card-title></mat-card-header
+    >
+    <mat-card-content fxFlex="40">
+      <form [formGroup]="user" (ngSubmit)="tryLogin()" id="ngUserForm">
+        <div fxLayout="column">
+          <mat-form-field class="form-field" fxFlex="100">
+            <mat-label>User</mat-label>
+            <input
+              matInput
+              formControlName="user"
+              placeholder="User/Email"
+              type="text"
+            />
+            <mat-error *ngIf="invalid('user')"
+              >Please, fill the user field</mat-error
+            >
+          </mat-form-field>
+          <mat-form-field class="form-field" fxFlex="100">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              formControlName="password"
+              placeholder="Password"
+              type="password"
+            />
+            <mat-error *ngIf="invalid('password')"
+              >Please, you need to submit a password</mat-error
+            >
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions fxFlex="20" fxLayout.xs="column" fxLayout.sm="column"  fxLayout="row" >
+      <div fxFlex="50" fxFlex.xs="100" fxFlex.sm="100" fxFill>
+        <button
+        fxFill
+          mat-raised-button
+          type="submit"
+          color="primary"
+          form="ngUserForm"
+        >
+          Log
+        </button>
+      </div>
+      <div fxFlex="50" fxFlex.xs="100" fxFlex.sm="100">
+        <button
+          mat-raised-button
+          type="submit"
+          color="warn"
+          (click)="restart()"
+        >
+          Forgot password?
+        </button>
+      </div>
+    </mat-card-actions>
+  </mat-card>
+</div>

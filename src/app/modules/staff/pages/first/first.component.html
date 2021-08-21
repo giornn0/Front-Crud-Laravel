@@ -1,0 +1,26 @@
+<div class="drag-list">
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <mat-button-toggle-group fxLayout="column">
+      <div
+        class="example-box"
+        *ngFor="let employee of staff; let i = index"
+        cdkDrag
+        fxFlex="100"
+        fxLayout="row"
+      >
+        <mat-panel-title fxFlex="80"
+          ><mat-button-toggle mat-raised-button fxFill fxLayoutAlign="start">
+            <mat-label fxLayoutAlign="center"
+              >{{ employee.first_name }} {{ employee.last_name }}
+            </mat-label></mat-button-toggle
+          >
+        </mat-panel-title>
+        <app-button-actions
+          [id]="employee.staff_id"
+          section="staff"
+          [name]="employee.first_name.concat(' ').concat(employee.last_name)"
+        ></app-button-actions>
+      </div>
+    </mat-button-toggle-group>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<div fxLayout="row">
+  <mat-button-toggle-group
+    fxLayout="row"
+    fxLayoutGap="1vw"
+    fxFlex="100"
+    fxLayoutAlign="start"
+    ><div fxFlex.gt-lg="65" fxFlex.sm="100" fxFlex.xs="100">
+      <mat-button-toggle
+        fxFlex.gt-lg="20"
+        fxFlex.sm="40"
+        fxFlex.xs="40"
+        class="mt-size"
+        [routerLink]="['/store']"
+        matTooolTip="Stores list"
+        >Store</mat-button-toggle
+      >
+      <mat-button-toggle
+        fxFlex.gt-lg="20"
+        fxFlex.sm="60"
+        fxFlex.xs="60"
+        class="mt-size"
+        [routerLink]="['/store/create']"
+        matTooolTip="Create a new store"
+        >New Store</mat-button-toggle
+      >
+      <mat-button-toggle
+        fxFlex.gt-lg="15"
+        fxShow="false"
+        fxShow.md="true"
+        fxShow.lg="true"
+        fxShow.gt-lg="true"
+        class="mt-size"
+        [routerLink]="['/']"
+        matTooolTip="Balance in general"
+        >Sales
+      </mat-button-toggle>
+    </div>
+  </mat-button-toggle-group>
+</div>

@@ -1,0 +1,27 @@
+<div
+  *ngIf="message"
+  [ngClass]="{
+    alert: message,
+    'alert-success': message.type === 'success',
+    'alert-danger': message.type === 'error'
+  }"
+  class="ht-size"
+><div fxLayout="row" fxLayoutGap="1vw">
+  <mat-label fxFlex="90">
+    {{ message.text }}
+  </mat-label>
+  <button
+  mat-flat-button 
+  fxFlex="10"
+  fxLayoutAlign="center center"
+    style="
+      width: fit-content;
+      height: fit-content;
+    "
+    (click)="ngOnDestroy()"
+  >
+    <mat-icon fxLayoutAlign="stretch" class="mt-size t-exit">clear</mat-icon>
+  </button>
+
+</div>
+</div>

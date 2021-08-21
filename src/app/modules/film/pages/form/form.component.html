@@ -1,0 +1,229 @@
+<div fxLayout="row" class="form-wrapper" fxLayoutAlign="space-evenly center">
+  <mat-card
+    fxFlex="60"
+    fxFlex.xs="90"
+    fxFlex.sm="90"
+    fxLayout="column"
+    fxLayoutGap="1.5vw"
+  >
+    <mat-card-header
+      fxFlex="30"
+      fxFlex.xs="50"
+      fxFlex.sm="50"
+      fxFill
+      fxLayoutAlign="center"
+    >
+      <mat-card-title
+        ><mat-label class="title">
+          {{ isEdit ? "Edit film " + film.title : "New Employee" }}
+        </mat-label>
+      </mat-card-title>
+      <mat-icon
+        fxLayoutAlign="stretch"
+        [ngClass]="{ 't-secondary': isEdit, 't-primary': !isEdit }"
+        class="lg-size-icon"
+        >{{ isEdit ? "edit" : "add_circle" }}</mat-icon
+      >
+    </mat-card-header>
+    <div fxFlex="10" fxFill></div>
+    <mat-card-content
+      fxFlex="50"
+      fxFill
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <form
+        [formGroup]="filmForm"
+        id="ngEmployeeForm"
+        (ngSubmit)="submit()"
+        automplete="off"
+        fxFlex="40"
+        fxFlex.xs="80"
+        fxFlex.sm="80"
+        fxLayout="column"
+      >
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Title</mat-label>
+          <input
+            matInput
+            type="text"
+            formControlName="title"
+            placeholder="Title"
+          />
+          <mat-error *ngIf="invalid('title')">This field is necesary</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea
+            matInput
+            type="text"
+            formControlName="description"
+            placeholder="Description"
+          ></textarea>
+          <mat-error *ngIf="invalid('description')"
+            >This field is required</mat-error
+          >
+        </mat-form-field>
+        <div fxFlex="100" fxLayout="row" fxLayoutGap="1vw">
+          <div fxFlex="50">
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Release year</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="release_year"
+                placeholder="Release year"
+              />
+              <mat-error *ngIf="invalid('release_year')"
+                >The release year is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>language</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="language"
+                placeholder="Language"
+              />
+              <mat-error *ngIf="invalid('language')"
+                >The language is required</mat-error
+              >
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Original language</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="original_language"
+                placeholder="Original language"
+              />
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Length</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="length"
+                placeholder="Length"
+              />
+              <mat-error *ngIf="invalid('length')"
+                >The length is required</mat-error
+              >
+            </mat-form-field>
+            <mat-form-field class="form-field" appearance="outline">
+              <mat-label>Replacement cost</mat-label>
+              <input
+                matInput
+                type="text"
+                formControlName="replacement_cost"
+                placeholder="Replacement cost"
+              />
+            </mat-form-field>
+          </div>
+          <div
+            fxFlex="40"
+            fxLayoutAlign="start start"
+            style="height: fit-content; width: 25vw"
+          >
+            <div
+              [ngClass]="{
+                'section-no-port': !portURL,
+                'section-port': portURL
+              }"
+            >
+              <label
+                for="imageUpload"
+                matTooltip="Change profile picture"
+                [ngClass.lg]="{
+                  'float-portrait ct-lg mt-size': portURL,
+                  'non-float-portrait ct-lg mt-size': !portURL
+                }"
+                [ngClass.md]="{
+                  'float-portrait ct-md st-size': portURL,
+                  'non-float-portrait ct-md st-size': !portURL
+                }"
+                [ngClass.sm]="{
+                  'float-portrait ct-md st-size': portURL,
+                  'non-float-portrait ct-md st-size': !portURL
+                }"
+                [ngClass.xs]="{
+                  'float-portrait ct-sm st-size': portURL,
+                  'non-float-portrait ct-sm st-size': !portURL
+                }"
+                >{{ portURL ? "" : "Add  picture" }}
+
+                <img
+                  *ngIf="portURL"
+                  [src]="portURL"
+                  ngClass.xs="md-image"
+                  ngclass.sm="md-image"
+                  style="height: 370px; width: 180px; border-radius: 0%"
+                />
+              </label>
+              <input
+                type="file"
+                id="imageUpload"
+                accept="image/*"
+                (change)="updatePortrait($event)"
+                class="ghost"
+              />
+              <button
+                *ngIf="portURL"
+                mat-button
+                color="warn"
+                (click)="erasePortarit()"
+                matTooltip="Delete portrait"
+              >
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div fxLayout="row" fxFlex="100">
+          <mat-form-field fxFlex="50" class="form-field" appearance="outline">
+            <mat-label>Rating</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="replacement_cost"
+              placeholder="replacement_cost"
+            />
+          </mat-form-field>
+          <mat-form-field fxFlex="50" class="form-field" appearance="outline">
+            <mat-label>Special features</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="special_features"
+              placeholder="Special features"
+            />
+          </mat-form-field>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions fxFlex="20" fxLayout="row" fxLayoutAlign="center center">
+      <button
+        fxFlex="30"
+        mat-raised-button
+        color="warn"
+        [routerLink]="['/staff']"
+      >
+        Cancel
+      </button>
+      <button
+        fxFlex="30"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        form="ngEmployeeForm"
+      >
+        {{ isEdit ? "Confirm" : "Charge" }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-icon class="form-icon" fxShow.xs="false" fxShow.sm="false"
+    >movie</mat-icon
+  >
+</div>

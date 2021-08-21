@@ -1,0 +1,24 @@
+<div class="flex-container" fxLayout="column" @fade>
+      <app-header fxFlex="10" (toogleSideMenu)="sideMenu($event)" @fade></app-header>
+    <mat-drawer-container
+    fxFlex="90"
+    select-clickOutside
+    (CloseSideMenu)="sideMenu($event)"
+    fxLayout="row"
+    >
+    <mat-drawer #sideNav mode="over" [opened]="sideBar" fxFlex="15" fxFlex.xs="40" fxFlex.sm="40">
+      <app-side-nav style="margin: 0%"></app-side-nav>
+    </mat-drawer>
+    <mat-drawer-content style="margin-top: 1%"  fxFlex="100">
+      <router-outlet ></router-outlet>
+    </mat-drawer-content>
+  </mat-drawer-container>
+</div>
+
+<alert class="alert"></alert>
+
+<div class="overlay" *ngIf="spinner">
+  <div class="center">
+    <app-spinner></app-spinner>
+  </div>
+</div>

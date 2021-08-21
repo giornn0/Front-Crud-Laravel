@@ -1,0 +1,10 @@
+<div style="width: 100%">
+  <h1 mat-dialog-title>{{ action }}</h1>
+  <div mat-dialog-content>
+    <mat-label>{{ message }}</mat-label>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button mat-dialog-close="success" cdkFocusInitial>Ok</button>
+  </div>
+</div>

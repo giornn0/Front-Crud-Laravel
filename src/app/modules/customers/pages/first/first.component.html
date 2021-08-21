@@ -1,0 +1,23 @@
+<div class="drag-list">
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let customer of customers" cdkDrag>
+      <mat-accordion style="width: 100%; height: 100%">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              >{{ customer.first_name }} {{ customer.last_name }}
+            </mat-panel-title>
+            <app-button-actions
+              [id]="customer.customer_id"
+              section="customers"
+              [name]="customer.first_name.concat(' ').concat(customer.last_name)"
+            ></app-button-actions>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            {{ customer | json }}
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

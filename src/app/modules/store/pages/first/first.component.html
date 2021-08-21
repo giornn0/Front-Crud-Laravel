@@ -1,0 +1,22 @@
+<div class="drag-list">
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let store of stores" cdkDrag>
+      <mat-accordion style="width: 100%; height: fit-content">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title class="mt-size">{{ store.name }} </mat-panel-title>
+            <app-button-actions
+              [id]="store.store_id"
+              section="store"
+              [name]="store.name"
+              (erase)="delete($event)"
+            ></app-button-actions>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            {{ store | json }}
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,21 @@
+<div class="drag-list">
+  <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let film of films" cdkDrag>
+      <mat-accordion style="width: 100%; height: 100%">
+        <mat-expansion-panel hideToggle>
+          <mat-expansion-panel-header>
+            <mat-panel-title>{{ film.title }} </mat-panel-title>
+            <app-button-actions
+              [id]="film.film_id"
+              section="film"
+              [name]="film.title"
+            ></app-button-actions>
+          </mat-expansion-panel-header>
+          <mat-panel-description>
+            {{ film | json }}
+          </mat-panel-description>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </div>
+</div>
