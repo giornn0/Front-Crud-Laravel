@@ -14,3 +14,9 @@ export class LoginResolver implements Resolve<boolean> {
     return of(true);
   }
 }
+@Injectable({providedIn:'root'})
+export class LogStatusResolver implements Resolve<boolean>{
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
+    return of(true);
+  }
+}

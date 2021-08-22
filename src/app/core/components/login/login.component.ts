@@ -31,7 +31,9 @@ export class LoginComponent implements OnInit {
 
   tryLogin() {
     this.logService.login(this.user.value).subscribe((res) => {
-      console.log(res)
+      localStorage.setItem('token',res.access_token)
+      sessionStorage.setItem('id',res.id_user)
+      this.logService.logged.next(true)
       this.router.navigate(['']);
     });
   }
