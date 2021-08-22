@@ -37,15 +37,9 @@ export class AppComponent implements OnInit {
     this.spinnerSubscription = this.loader
       .getStatus()
       .subscribe((res) => (this.spinner = res));
-
-    this.logService.statusSession().subscribe(
-      (res) => {
-        this.show = true;
-      },
-      (error) => {
-        this.show = false;
-      }
-    );
+    this.logService.getSessionStatus().subscribe((res) => {
+      this.show = res;
+    });
   }
   sideMenu(value?: boolean | null) {
     if (value === false) {

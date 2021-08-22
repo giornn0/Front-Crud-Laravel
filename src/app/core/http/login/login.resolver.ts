@@ -1,22 +1,29 @@
 import { Injectable } from '@angular/core';
 import {
-  Router, Resolve,
+  Router,
+  Resolve,
   RouterStateSnapshot,
-  ActivatedRouteSnapshot
+  ActivatedRouteSnapshot,
 } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Observable, of } from 'rxjs';
+import { LoginService } from './login.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class LoginResolver implements Resolve<boolean> {
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
-  }
-}
-@Injectable({providedIn:'root'})
-export class LogStatusResolver implements Resolve<boolean>{
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-    return of(true);
+export class LoginResolver implements Resolve<Subscription> {
+  constructor(private logService: LoginService, private router: Router) {}
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Subscription {
+    return this.logService.statusSession().subscribe(
+      (res) => this.logService.logged.next(true),
+      (error) => {
+        this.logService.logged.next(false);
+        this.router.navigate(['login']);
+      }
+    );
   }
 }

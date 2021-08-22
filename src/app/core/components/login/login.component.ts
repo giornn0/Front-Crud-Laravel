@@ -1,6 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginService } from '../../http/login/login.service';
 import { UserService } from '../../services/user/user.service';
@@ -9,11 +13,11 @@ import { Usuario } from '../../../shared/models/usuario.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
   mail: string = '';
-  usuario: Usuario = {} as Usuario
+  usuario: Usuario = {} as Usuario;
   constructor(
     private logService: LoginService,
     private fBuilder: FormBuilder,
@@ -27,13 +31,15 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.logService.logged.next(false);
+  }
 
   tryLogin() {
     this.logService.login(this.user.value).subscribe((res) => {
-      localStorage.setItem('token',res.access_token)
-      sessionStorage.setItem('id',res.id_user)
-      this.logService.logged.next(true)
+      localStorage.setItem('token', res.access_token);
+      sessionStorage.setItem('id', res.id_user);
+      this.logService.logged.next(true);
       this.router.navigate(['']);
     });
   }
