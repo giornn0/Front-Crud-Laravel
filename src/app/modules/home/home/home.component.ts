@@ -11,7 +11,6 @@ export class HomeComponent implements OnInit {
   constructor(private logService: LoginService) { }
 
   ngOnInit(): void {
-    this.logService.statusSession().subscribe()
   }
 
 }

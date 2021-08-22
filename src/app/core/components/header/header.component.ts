@@ -8,14 +8,9 @@ import { LoginService } from '../../http/login/login.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  show: boolean = false;
 
-  constructor(private logService: LoginService) {}
+  constructor() {}
 
   ngOnInit(): void {
-    this.logService.statusSession().subscribe(
-      (res) => (this.show = true),
-      (error) => (this.show = false)
-    );
   }
 }
