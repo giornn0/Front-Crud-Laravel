@@ -16,10 +16,10 @@
   </mat-form-field>
   <mat-error *ngIf="isInvalid('password')">Error en el password.</mat-error>
 </div>
-<div mat-dialog-actions>
-  <button mat-button-raised (click)="onNoClick()" color="warn">Cancel</button>
+<div mat-dialog-actions fxLayoutAlign="center center">
+  <button mat-raised-button (click)="onNoClick()" color="warn">Cancel</button>
   <button
-    mat-button-raised
+    mat-raised-button
     [mat-dialog-close]="data"
     cdkFocusInitial
     [disabled]="nuevoUsuario.invalid"
