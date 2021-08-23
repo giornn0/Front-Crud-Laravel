@@ -6,6 +6,7 @@ import {
 } from './etiquetas.routing.module';
 import { MaterialModule } from 'src/app/core/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [routingComponents],
@@ -14,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     EtiquetasRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    SharedModule,
   ],
 })
 export class EtiquetasModule {}

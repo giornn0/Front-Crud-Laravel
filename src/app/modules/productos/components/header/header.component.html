@@ -1,1 +1,18 @@
-<p>header works!</p>
+<div fxLayout="row">
+    <button
+      mat-raised-button
+      [routerLink]="['/productos']"
+      [queryParams]="{ page: '1' }"
+    >
+      Productos
+    </button>
+    <button mat-raised-button [routerLink]="['/productos/crear']">
+      Nuevo Producto
+    </button>
+    <button mat-raised-button [routerLink]="['/productos/etiquetas']">
+      Etiquetas
+    </button>
+    <button mat-raised-button [routerLink]="['/productos/etiquetas/crear']">
+      Nueva Etiqueta
+    </button>
+  </div>

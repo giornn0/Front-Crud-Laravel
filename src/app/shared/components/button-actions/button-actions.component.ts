@@ -13,13 +13,18 @@ export class ButtonActionsComponent implements OnInit {
   @Input() section = '';
   @Input() id: number = 0;
   @Input() name = '';
+  @Input() subCategory = '';
   @Output() erase: EventEmitter<number> = new EventEmitter();
 
   editRoute = '';
   constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.editRoute = `/${this.section}/editar/${this.id.toString()}/`;
+    if (this.subCategory)
+      this.editRoute = `/${this.section}/${
+        this.subCategory
+      }/editar/${this.id.toString()}/`;
+    else this.editRoute = `/${this.section}/editar/${this.id.toString()}/`;
   }
   edit() {
     this.router.navigate([this.editRoute]);

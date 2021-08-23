@@ -7,6 +7,7 @@ import {
 import { HeaderComponent } from './components/header/header.component';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
+import { LoginResolver } from '../../core/http/login/login.resolver';
 
 const routes: Routes = [
   {
@@ -17,10 +18,11 @@ const routes: Routes = [
   {
     path: '',
     outlet: 'header',
-    component: HeaderComponent
+    component: HeaderComponent,
   },
   {
     path: 'crear',
+    resolve: { LoginResolver },
     component: FormComponent,
   },
   {

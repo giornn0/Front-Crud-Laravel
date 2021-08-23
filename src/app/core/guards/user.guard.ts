@@ -7,12 +7,13 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LoginService } from '../http/login/login.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserGuard implements CanActivate {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private logService: LoginService) {}
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
@@ -21,8 +22,10 @@ export class UserGuard implements CanActivate {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (localStorage.getItem('token')) return true;
-    this.router.navigate(['login'])
+    if (localStorage.getItem('token')) {
+      return true;
+    }
+    this.router.navigate(['login']);
     return false;
   }
 }

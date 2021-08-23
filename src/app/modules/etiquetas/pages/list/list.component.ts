@@ -9,13 +9,13 @@ import { Etiqueta } from 'src/app/shared/models/etiqueta.model';
 })
 export class ListComponent implements OnInit {
   etiquetas: Etiqueta[] = [];
+  columnas: string[] = ['Nombre','Acciones']
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      console.log(data);
-      this.etiquetas = data.etiquetas.data as Etiqueta[];
+      this.etiquetas = data.etiquetas.etiquetas as Etiqueta[];
     });
   }
 }

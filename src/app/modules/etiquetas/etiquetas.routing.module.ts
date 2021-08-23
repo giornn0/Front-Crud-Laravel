@@ -6,6 +6,7 @@ import {
 } from 'src/app/core/http/etiquetas/etiquetas.resolver';
 import { FormComponent } from './pages/form/form.component';
 import { ListComponent } from './pages/list/list.component';
+import { LoginResolver } from '../../core/http/login/login.resolver';
 
 const routes: Routes = [
   {
@@ -16,6 +17,7 @@ const routes: Routes = [
   {
     path: 'crear',
     component: FormComponent,
+    resolve:{LoginResolver}
   },
   {
     path: 'editar/:id',

@@ -9,6 +9,8 @@ import { Venta } from 'src/app/shared/models/venta.model';
 })
 export class ListComponent implements OnInit {
   ventas: Venta[] = [];
+  columnas: string[] = ['Fecha','Monto','Acciones']
+
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
