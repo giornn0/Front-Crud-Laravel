@@ -1,7 +1,7 @@
 <div class="flex-container" fxLayout="column" @fade>
-      <app-header fxFlex="10"  @fade *ngIf="show"></app-header>
+      <app-header fxFlex="7"  @fade *ngIf="show" (side)="sideMenu($event)"></app-header>
     <mat-drawer-container
-    fxFlex="90"
+    fxFlex="93"
     select-clickOutside
     (CloseSideMenu)="sideMenu($event)"
     fxLayout="row"

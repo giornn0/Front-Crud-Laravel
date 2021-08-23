@@ -12,19 +12,19 @@ export class EtiquetasService {
   constructor(private http:HttpClient) { }
 
   index(page:number):Observable<unknown>{
-    return this.http.get(`${env.API_URL}/etiquetas?page=${page}`)
+    return this.http.get(`${env.API_URL}/etiquetas_prod?page=${page}`)
   }
   getOne(id:number):Observable<unknown>{
-    return this.http.get(`${env.API_URL}/etiquetas/${id}`)
+    return this.http.get(`${env.API_URL}/etiquetas_prod/${id}`)
   }
   create(etiqueta:Etiqueta):Observable<unknown>{
-    return this.http.post(`${env.API_URL}/etiquetas`,etiqueta)
+    return this.http.post(`${env.API_URL}/etiquetas_prod`,etiqueta)
   }
   edit(etiqueta:Etiqueta,id:number):Observable<unknown>{
-    return this.http.put(`${env.API_URL}/etiquetas/${id}`,etiqueta)
+    return this.http.put(`${env.API_URL}/etiquetas_prod/${id}`,etiqueta)
   }
   delete(id:number):Observable<unknown>{
-    return this.http.delete(`${env.API_URL}/etiquetas/${id}`)
+    return this.http.delete(`${env.API_URL}/etiquetas_prod/${id}`)
   }
 
 }

@@ -1,7 +1,22 @@
 <mat-toolbar>
-  <mat-toolbar-row>
-    <button>MENU</button>
+  <mat-toolbar-row fxLayout="row">
+    <div fxFlex="10" fxLayoutAlign="center center">
+      <button mat-button fxFill (click)="openSM()"><mat-icon>menu</mat-icon></button>
+    </div>
+    <div fxFlex="70" 
+    select-clickOutside  (CloseSideMenu)="dirAct($event)">HEADER STUFF </div>
+    <div fxFlex="20" 
+    select-clickOutside 
+    (CloseSideMenu)="dirAct($event)">
+      <img
+        src="https://www.codewars.com/users/giornn0/badges/large"
+        style="width: 80%"
+      />
+      <button mat-button [matMenuTriggerFor]="menu">Admin</button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>Usuario</button>
+        <button mat-menu-item (click)="logOut()">Cerrar sesion</button>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
-  <mat-toolbar-row>HEADER STUFF</mat-toolbar-row>
-  <mat-toolbar-row>USER SECTION</mat-toolbar-row>
 </mat-toolbar>

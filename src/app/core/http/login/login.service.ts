@@ -18,8 +18,8 @@ export class LoginService {
     return this.http.post(`${env.API_URL}/login/restart`, mail);
   }
 
-  logout(id: number): Observable<any> {
-    return this.http.delete(`${env.API_URL}/login/${id}`);
+  logout(id: string): Observable<any> {
+    return this.http.delete(`${env.API_URL}/logout/${id}`);
   }
   statusSession(): Observable<unknown> {
     return this.http.get(`${env.API_URL}/logstatus`);

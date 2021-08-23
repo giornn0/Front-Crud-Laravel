@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.logService.logged.next(false);
   }
 
   tryLogin() {

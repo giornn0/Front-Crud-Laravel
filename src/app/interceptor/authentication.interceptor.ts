@@ -32,7 +32,6 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     request = request.clone({
       headers: request.headers.set('Accept', 'application/json'),
     });
-    console.log(request);
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
         if (error.status != 401) {
