@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { routingComponents } from './productos.routing.module';
 
 
 
 @NgModule({
-  declarations: [],
+  declarations: [routingComponents],
   imports: [
     CommonModule
   ]

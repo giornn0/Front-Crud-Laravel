@@ -12,7 +12,7 @@ export class ProductosService {
 
 
 
-  index(page:number):Observable<unknown>{
+  index(page?:number):Observable<unknown>{
     return this.http.get(`${env.API_URL}/productos?page=${page}`)
   }
   getOne(id:number):Observable<unknown>{

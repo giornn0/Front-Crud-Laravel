@@ -13,7 +13,7 @@ export class VentasService {
 
 
 
-  index(page:number):Observable<unknown>{
+  index(page?:number):Observable<unknown>{
     return this.http.get(`${env.API_URL}/ventas?page=${page}`)
   }
   getOne(id:number):Observable<unknown>{
