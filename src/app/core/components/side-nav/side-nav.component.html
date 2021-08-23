@@ -1,11 +1,26 @@
 <div fxLayout="column" style="width: 15vw">
-  <button mat-button-raised [routerLink]="['/clientes']" style="height: 10vh">
+  <button
+    mat-button-raised
+    [routerLink]="['/clientes']"
+    [queryParams]="{ page: '1' }"
+    style="height: 10vh"
+  >
     Clientes
   </button>
-  <button mat-button-raised [routerLink]="['/productos']" style="height: 10vh">
+  <button
+    mat-button-raised
+    [routerLink]="['/productos']"
+    [queryParams]="{ page: '1' }"
+    style="height: 10vh"
+  >
     Productos
   </button>
-  <button mat-button-raised [routerLink]="['/ventas']" style="height: 10vh">
+  <button
+    mat-button-raised
+    [routerLink]="['/ventas']"
+    [queryParams]="{ page: '1' }"
+    style="height: 10vh"
+  >
     Ventas
   </button>
 </div>

@@ -10,11 +10,11 @@ import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { throwError } from 'rxjs';
-import { LoginService } from '../core/http/login/login.service';
+import { LoginService } from '../http/login/login.service';
 
 @Injectable()
 export class AuthenticationInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private logService: LoginService) {}
 
   intercept(
     request: HttpRequest<unknown>,
@@ -25,6 +25,7 @@ export class AuthenticationInterceptor implements HttpInterceptor {
       request = request.clone({
         headers: request.headers.set('Authorization', `Bearer ${token}`),
       });
+      this.logService.logged.next(true);
     }
     request = request.clone({
       headers: request.headers.set('Contentent-Type', 'application/json'),

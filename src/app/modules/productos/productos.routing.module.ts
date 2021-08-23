@@ -5,8 +5,8 @@ import {
   ProductoResolver,
   ProductosResolver,
 } from 'src/app/core/http/productos/productos.resolver';
-import { FormComponent } from '../produtos/pages/form/form.component';
-import { ListComponent } from '../produtos/pages/list/list.component';
+import { FormComponent } from './pages/form/form.component';
+import { ListComponent } from './pages/list/list.component';
 import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [

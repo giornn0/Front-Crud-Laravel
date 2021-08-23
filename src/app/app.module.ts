@@ -4,7 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthenticationInterceptor } from './interceptor/authentication.interceptor';
+import { AuthenticationInterceptor } from './core/interceptors/authentication.interceptor';
 import { LoaderInterceptor } from './core/interceptors/loader.interceptor';
 import { MaterialModule } from './core/material.module';
 import { CoreModule } from './core/core.module';
