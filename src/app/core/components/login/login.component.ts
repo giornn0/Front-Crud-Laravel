@@ -7,7 +7,6 @@ import {
 } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { LoginService } from '../../http/login/login.service';
-import { UserService } from '../../services/user/user.service';
 import { Usuario } from '../../../shared/models/usuario.model';
 
 @Component({
@@ -22,8 +21,7 @@ export class LoginComponent implements OnInit {
     private logService: LoginService,
     private fBuilder: FormBuilder,
     public dialog: MatDialog,
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {}
 
   user: FormGroup = this.fBuilder.group({
@@ -31,8 +29,7 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   tryLogin() {
     this.logService.login(this.user.value).subscribe((res) => {
@@ -47,16 +44,21 @@ export class LoginComponent implements OnInit {
       this.user.controls[field]?.invalid && this.user.controls[field]?.touched
     );
   }
-  restart() {
+  newUser() {
     const dialogRef = this.dialog.open(SetMail, {
       width: '250px',
-      data: { mail: this.user.controls['user'].value },
+      data: { mail: this.user.controls['email'].value },
     });
     dialogRef.afterClosed().subscribe((result) => {
       if (result)
-        this.logService.restart(result).subscribe(
+        this.logService.createUser(result).subscribe(
           (res) => {
-            console.log(res);
+            this.logService.login(result).subscribe((res) => {
+              localStorage.setItem('token', res.access_token);
+              sessionStorage.setItem('id', res.id_user);
+              this.logService.logged.next(true);
+              this.router.navigate(['']);
+            });
           },
           (error) => {
             console.log(error);
@@ -72,7 +74,9 @@ export class LoginComponent implements OnInit {
 }
 
 export interface DialogData {
-  mail: string;
+  email: string;
+  nombre: string;
+  password: string;
 }
 
 @Component({
@@ -86,17 +90,31 @@ export class SetMail implements OnInit {
     private fBuilder: FormBuilder
   ) {}
 
-  recovery: FormGroup = this.fBuilder.group({
-    mail: this.fBuilder.control(this.data.mail, [
+  nuevoUsuario: FormGroup = this.fBuilder.group({
+    email: this.fBuilder.control(this.data.email, [
       Validators.required,
       Validators.email,
+    ]),
+    name: this.fBuilder.control('', [
+      Validators.required,
+      Validators.maxLength(55),
+    ]),
+    password: this.fBuilder.control('', [
+      Validators.required,
+      Validators.maxLength(55),
     ]),
   });
 
   ngOnInit(): void {
-    this.recovery.controls['mail'].valueChanges.subscribe((mail) => {
-      this.data.mail = mail;
+    this.nuevoUsuario.valueChanges.subscribe((form) => {
+      this.data = form;
     });
+  }
+  isInvalid(field: string) {
+    return !!(
+      this.nuevoUsuario.controls[field].invalid &&
+      this.nuevoUsuario.controls[field].touched
+    );
   }
 
   onNoClick() {

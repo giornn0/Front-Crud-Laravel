@@ -17,7 +17,7 @@ const routes: Routes = [
   {
     path: '',
     outlet: 'header',
-    component: HeaderComponent,
+    component: HeaderComponent
   },
   {
     path: 'crear',
@@ -36,7 +36,7 @@ const routes: Routes = [
 })
 export class ClientesRoutingModule {}
 export const routingComponents = [
-  FormComponent,
   HeaderComponent,
+  FormComponent,
   ListComponent,
 ];

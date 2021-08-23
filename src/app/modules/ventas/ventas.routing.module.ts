@@ -8,8 +8,8 @@ import {
 } from '../../core/http/ventas/ventas.resolver';
 import { ProductosVentaResolver } from '../../core/http/productos-venta/productos-venta.resolver';
 import { ListComponent } from './pages/list/list.component';
-import { HeaderComponent } from '../clientes/components/header/header.component';
 import { FormComponent } from './pages/form/form.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
   {

@@ -17,6 +17,9 @@ export class LoginService {
   restart(mail: string): Observable<any> {
     return this.http.post(`${env.API_URL}/login/restart`, mail);
   }
+  createUser(user:Usuario){
+    return this.http.post(`${env.API_URL}/register`, user)
+  }
 
   logout(id: string): Observable<any> {
     return this.http.delete(`${env.API_URL}/logout/${id}`);

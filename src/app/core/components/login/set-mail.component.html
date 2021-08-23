@@ -1,13 +1,29 @@
-<h1 mat-dialog-title>Recovery Mail</h1>
-<div mat-dialog-content [formGroup]="recovery">
-    <p>Please input your registered mail.</p>
-    <mat-form-field appearance="fill">
-        <mat-label>Email</mat-label>
-        <input matInput formControlName="mail" >
-    </mat-form-field>
-    <mat-error *ngIf="recovery.controls['mail'].touched && recovery.controls['mail'].invalid">The email is wrong.</mat-error>
+<h1 mat-dialog-title>Nuevo Usuario</h1>
+<div mat-dialog-content [formGroup]="nuevoUsuario">
+  <mat-form-field appearance="fill">
+    <mat-label>Nombre</mat-label>
+    <input matInput type="text" formControlName="name" />
+    <mat-error *ngIf="isInvalid('name')">Error en el nombre.</mat-error>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" />
+  </mat-form-field>
+  <mat-error *ngIf="isInvalid('email')">Error en el email.</mat-error>
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+  </mat-form-field>
+  <mat-error *ngIf="isInvalid('password')">Error en el password.</mat-error>
 </div>
 <div mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">Cancel</button>
-    <button mat-button [mat-dialog-close]="data.mail" cdkFocusInitial [disabled]="recovery.invalid">Ok</button>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button
+    mat-button
+    [mat-dialog-close]="data"
+    cdkFocusInitial
+    [disabled]="nuevoUsuario.invalid"
+  >
+    Ok
+  </button>
 </div>
