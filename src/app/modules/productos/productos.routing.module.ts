@@ -5,19 +5,30 @@ import {
   ProductoResolver,
   ProductosResolver,
 } from 'src/app/core/http/productos/productos.resolver';
+import { FormComponent } from '../produtos/pages/form/form.component';
+import { ListComponent } from '../produtos/pages/list/list.component';
+import { HeaderComponent } from './components/header/header.component';
 
 const routes: Routes = [
   {
     path: '',
     resolve: { productos: ProductosResolver },
+    component: ListComponent,
+  },
+  {
+    path: '',
+    outlet: 'header',
+    component: HeaderComponent,
   },
   {
     path: 'crear',
     resolve: { etiquetas: EtiquetasResolver },
+    component: FormComponent,
   },
   {
     path: 'editar/:id/',
     resolve: { producto: ProductoResolver, etiquetas: EtiquetasResolver },
+    component: FormComponent,
   },
   {
     path: 'etiquetas',
@@ -31,4 +42,8 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class ProductosRoutingModule {}
-export const routingComponents = [];
+export const routingComponents = [
+  HeaderComponent,
+  FormComponent,
+  ListComponent,
+];

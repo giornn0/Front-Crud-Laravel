@@ -7,15 +7,25 @@ import {
   VentasResolver,
 } from '../../core/http/ventas/ventas.resolver';
 import { ProductosVentaResolver } from '../../core/http/productos-venta/productos-venta.resolver';
+import { ListComponent } from './pages/list/list.component';
+import { HeaderComponent } from '../clientes/components/header/header.component';
+import { FormComponent } from './pages/form/form.component';
 
 const routes: Routes = [
   {
     path: '',
-    resolve: {ventas: VentasResolver },
+    resolve: { ventas: VentasResolver },
+    component: ListComponent,
+  },
+  {
+    path: '',
+    outlet: 'header',
+    component: HeaderComponent,
   },
   {
     path: 'crear',
     resolve: { productos: AllProductosResolver, clientes: AllClientesResolver },
+    component: FormComponent,
   },
   {
     path: 'editar/:id/',
@@ -25,6 +35,7 @@ const routes: Routes = [
       prod_en_venta: ProductosVentaResolver,
       venta: VentaResolver,
     },
+    component: FormComponent,
   },
   {
     path: 'ver/:id/',
@@ -40,4 +51,8 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class VentasRoutingModule {}
-export const routingComponents = [];
+export const routingComponents = [
+  HeaderComponent,
+  ListComponent,
+  FormComponent,
+];

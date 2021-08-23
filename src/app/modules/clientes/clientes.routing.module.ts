@@ -1,20 +1,33 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ClienteResolver, ClientesResolver } from 'src/app/core/http/clientes/clientes.resolver';
+import {
+  ClienteResolver,
+  ClientesResolver,
+} from 'src/app/core/http/clientes/clientes.resolver';
+import { HeaderComponent } from './components/header/header.component';
+import { FormComponent } from './pages/form/form.component';
+import { ListComponent } from './pages/list/list.component';
 
 const routes: Routes = [
   {
     path: '',
     resolve: { clientes: ClientesResolver },
+    component: ListComponent,
   },
   {
-    path:'crear',
-
+    path: '',
+    outlet: 'header',
+    component: HeaderComponent,
   },
   {
-    path:'editar/:id/',
-    resolve: {cliente:ClienteResolver}
-  }
+    path: 'crear',
+    component: FormComponent,
+  },
+  {
+    path: 'editar/:id/',
+    resolve: { cliente: ClienteResolver },
+    component: FormComponent,
+  },
 ];
 
 @NgModule({
@@ -22,4 +35,8 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class ClientesRoutingModule {}
-export const routingComponents = [];
+export const routingComponents = [
+  FormComponent,
+  HeaderComponent,
+  ListComponent,
+];

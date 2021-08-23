@@ -1,20 +1,27 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { etiquetaResolver, etiquetasResolver } from 'src/app/core/http/etiquetas/etiquetas.resolver';
+import {
+  EtiquetaResolver,
+  EtiquetasResolver,
+} from 'src/app/core/http/etiquetas/etiquetas.resolver';
+import { FormComponent } from './pages/form/form.component';
+import { ListComponent } from './pages/list/list.component';
 
 const routes: Routes = [
   {
     path: '',
-    resolve: { etiquetas: etiquetasResolver },
+    resolve: { etiquetas: EtiquetasResolver },
+    component: ListComponent,
   },
   {
-    path:'crear',
-
+    path: 'crear',
+    component: FormComponent,
   },
   {
-    path:'editar/:id/',
-    resolve: {etiqueta:EtiquetaResolver}
-  }
+    path: 'editar/:id/',
+    resolve: { etiqueta: EtiquetaResolver },
+    component: FormComponent,
+  },
 ];
 
 @NgModule({
@@ -22,4 +29,4 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 export class EtiquetasRoutingModule {}
-export const routingComponents = [];
+export const routingComponents = [FormComponent, ListComponent];

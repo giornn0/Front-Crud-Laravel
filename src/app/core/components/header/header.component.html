@@ -4,7 +4,9 @@
       <button mat-button fxFill (click)="openSM()"><mat-icon>menu</mat-icon></button>
     </div>
     <div fxFlex="70" 
-    select-clickOutside  (CloseSideMenu)="dirAct($event)">HEADER STUFF </div>
+    select-clickOutside  (CloseSideMenu)="dirAct($event)">
+  <router-outlet name="header"></router-outlet>
+  </div>
     <div fxFlex="20" 
     select-clickOutside 
     (CloseSideMenu)="dirAct($event)">
