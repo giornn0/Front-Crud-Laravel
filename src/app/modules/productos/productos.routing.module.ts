@@ -26,14 +26,14 @@ const routes: Routes = [
     component: FormComponent,
   },
   {
-    path: 'editar/:id/',
-    resolve: { producto: ProductoResolver, etiquetas: EtiquetasResolver },
-    component: FormComponent,
-  },
-  {
     path: 'etiquetas',
     loadChildren: () =>
-      import('../etiquetas/etiquetas.module').then((m) => m.EtiquetasModule),
+    import('../etiquetas/etiquetas.module').then((m) => m.EtiquetasModule),
+  },
+  {
+    path: 'editar/:id',
+    resolve: { producto: ProductoResolver, etiquetas: EtiquetasResolver },
+    component: FormComponent,
   },
 ];
 

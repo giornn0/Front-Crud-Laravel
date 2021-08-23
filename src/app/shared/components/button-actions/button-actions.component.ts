@@ -19,7 +19,7 @@ export class ButtonActionsComponent implements OnInit {
   constructor(private router: Router, public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.editRoute = `/${this.section}/edit/${this.id.toString()}`;
+    this.editRoute = `/${this.section}/editar/${this.id.toString()}/`;
   }
   edit() {
     this.router.navigate([this.editRoute]);
@@ -29,7 +29,7 @@ export class ButtonActionsComponent implements OnInit {
       width: '30%',
       data: {
         action: 'Delete',
-        message: `Are you sure you want to delete ${this.name}`,
+        message: `Seguro que quiere eliminar ${this.name}?`,
       },
     });
     dialogRef.afterClosed().subscribe((res) => {

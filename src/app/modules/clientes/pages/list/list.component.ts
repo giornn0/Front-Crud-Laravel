@@ -9,6 +9,7 @@ import { Cliente } from 'src/app/shared/models/cliente.model';
 })
 export class ListComponent implements OnInit {
   clientes: Cliente[] = [];
+  columnas: string[] = ['Nombre','Apellido','Acciones']
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {

@@ -28,7 +28,7 @@ const routes: Routes = [
     component: FormComponent,
   },
   {
-    path: 'editar/:id/',
+    path: 'editar/:id',
     resolve: {
       productos: AllProductosResolver,
       clientes: AllClientesResolver,

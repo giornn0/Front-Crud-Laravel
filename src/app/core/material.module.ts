@@ -26,6 +26,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import {MatTableModule} from '@angular/material/table'
 @NgModule({
   declarations: [],
   imports: [],
@@ -55,6 +56,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
     MatMenuModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatTableModule
   ],
 })
 export class MaterialModule {}

@@ -18,7 +18,7 @@ const routes: Routes = [
     component: FormComponent,
   },
   {
-    path: 'editar/:id/',
+    path: 'editar/:id',
     resolve: { etiqueta: EtiquetaResolver },
     component: FormComponent,
   },

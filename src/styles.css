@@ -119,6 +119,12 @@ body {
   height: fit-content;
   background-color: var(--main-color4);
 }
+.wrapper {
+  display: flex;
+  width: 100vw;
+  height: fit-content;
+  background-color: var(--main-color4);
+}
 .form-field {
   width: 100%;
   display: block;

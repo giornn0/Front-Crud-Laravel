@@ -1,4 +1,4 @@
 export const environment = {
-  API_URL: `https://giornn0-film-store-back-end.herokuapp.com`,
+  API_URL: `http://localhos:8000`,
   production: true,
 };
