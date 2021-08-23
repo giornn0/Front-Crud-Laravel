@@ -17,12 +17,13 @@
   <mat-error *ngIf="isInvalid('password')">Error en el password.</mat-error>
 </div>
 <div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button-raised (click)="onNoClick()" color="warn">Cancel</button>
   <button
-    mat-button
+    mat-button-raised
     [mat-dialog-close]="data"
     cdkFocusInitial
     [disabled]="nuevoUsuario.invalid"
+    color="primary"
   >
     Ok
   </button>
