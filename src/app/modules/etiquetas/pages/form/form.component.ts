@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EtiquetasService } from 'src/app/core/http/etiquetas/etiquetas.service';
 
 @Component({
@@ -13,7 +13,8 @@ export class FormComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private fBuilder: FormBuilder,
-    private etiquetasService: EtiquetasService
+    private etiquetasService: EtiquetasService,
+    private router: Router
   ) {}
 
   etiquetaForm: FormGroup = this.fBuilder.group({
@@ -23,7 +24,6 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      console.log(data);
       if (data.etiqueta) {
         this.isEdit = true;
         this.etiquetaForm.reset(data.etiqueta);
@@ -37,6 +37,17 @@ export class FormComponent implements OnInit {
     );
   }
   submit() {
-    console.log('submiting', this.etiquetaForm.value);
+    if (this.etiquetaForm.valid) {
+      if (this.isEdit)
+        this.etiquetasService
+          .edit(this.etiquetaForm.value, this.etiquetaForm.controls['id'].value)
+          .subscribe((res) => this.router.navigateByUrl(`productos/etiquetas`));
+      if (!this.isEdit)
+        this.etiquetasService
+          .create(this.etiquetaForm.value)
+          .subscribe((res) => {
+            this.router.navigateByUrl(`productos/etiquetas`);
+          });
+    }
   }
 }

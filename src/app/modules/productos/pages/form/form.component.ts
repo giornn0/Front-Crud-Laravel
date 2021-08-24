@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProductosService } from 'src/app/core/http/productos/productos.service';
 import { Etiqueta } from 'src/app/shared/models/etiqueta.model';
 
@@ -12,31 +12,43 @@ import { Etiqueta } from 'src/app/shared/models/etiqueta.model';
 export class FormComponent implements OnInit {
   isEdit = false;
   etiquetas: Etiqueta[] = [];
-  removed_etiquetas: Etiqueta[] = [];
-  selected_etiquetas: any[] = [];
+  etiquetasLista: Etiqueta[] = [];
+  etiquetasForm: any[] = [];
   pushing = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private fBuilder: FormBuilder,
-    private productosService: ProductosService
+    private productosService: ProductosService,
+    private router: Router
   ) {}
 
   productoForm: FormGroup = this.fBuilder.group({
     id: '',
     nombre: ['', [Validators.required, Validators.maxLength(55)]],
     descripcion: ['', [Validators.maxLength(200)]],
-    etiquetas: ['', []],
+    etiquetas: ['', [Validators.required]],
   });
 
   ngOnInit(): void {
+    this.productoForm.controls['etiquetas'].valueChanges.subscribe((id) => {
+      this.etiquetas = this.etiquetas.filter((etiqueta) => {
+        if (etiqueta.id === id) {
+          this.etiquetasLista.push(etiqueta);
+          this.etiquetasForm.push(etiqueta.id)
+          return;
+        }
+        return etiqueta;
+      });
+    });
     this.activatedRoute.data.subscribe((data) => {
       this.etiquetas = data.etiquetas.etiquetas as Etiqueta[];
-      console.log(data.producto);
       if (data.producto) {
         this.isEdit = true;
         this.productoForm.reset(data.producto[0]);
-        this.selected_etiquetas = data.producto[1];
+        data.producto[1].forEach((etiqueta:number )=>{
+          this.productoForm.controls['etiquetas'].setValue(etiqueta)
+        })
       }
     });
   }
@@ -46,38 +58,21 @@ export class FormComponent implements OnInit {
       this.productoForm.controls[field].invalid
     );
   }
-  addEtiqueta(value: number | undefined) {
-    if (this.selected_etiquetas.includes(value)) return;
-    if (this.selected_etiquetas.length === 3) {
-      this.pushing = true;
-      return;
-    }
-    this.selected_etiquetas.push(value);
-    this.etiquetas = this.etiquetas.filter((etiqueta) => {
-      if (etiqueta.id != value) {
-        return etiqueta;
-      }
-      this.removed_etiquetas.push(etiqueta);
-      return;
-    });
-    this.productoForm.controls['etiquetas'].setValue(this.selected_etiquetas);
-  }
-  removeEtiqueta(value: number | undefined) {
-    this.selected_etiquetas = this.selected_etiquetas.filter(
-      (id) => id != value
-    );
-    this.productoForm.controls['etiquetas'].setValue(this.selected_etiquetas);
-    this.removed_etiquetas = this.removed_etiquetas.filter(
-      (etiqueta: Etiqueta) => {
-        if (etiqueta.id != value) {
-          return etiqueta;
-        }
-        this.etiquetas.push(etiqueta);
-        return;
-      }
-    );
-  }
+  addEtiqueta(value: number | undefined) {}
+  removeEtiqueta(value: number | undefined) {}
   submit() {
-    console.log('submiting', this.productoForm.value);
+    if (this.productoForm.valid) {
+      this.productoForm.controls['etiquetas'].setValue(this.etiquetasForm)
+      if (this.isEdit)
+        this.productosService
+          .edit(this.productoForm.value, this.productoForm.controls['id'].value)
+          .subscribe((res) => this.router.navigateByUrl(`productos?page=1`));
+      if (!this.isEdit)
+        this.productosService
+          .create(this.productoForm.value)
+          .subscribe((res) => {
+            this.router.navigateByUrl(`productos?page=1`);
+          });
+    }
   }
 }

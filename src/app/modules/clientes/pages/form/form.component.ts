@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientesService } from 'src/app/core/http/clientes/clientes.service';
 
 @Component({
@@ -14,7 +14,8 @@ export class FormComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private fBuilder: FormBuilder,
-    private clientesService: ClientesService
+    private clientesService: ClientesService,
+    private router: Router
   ) {}
 
   clienteForm: FormGroup = this.fBuilder.group({
@@ -42,6 +43,15 @@ export class FormComponent implements OnInit {
     );
   }
   submit() {
-    console.log('submiting', this.clienteForm.value);
+    if (this.clienteForm.valid) {
+      if (this.isEdit)
+        this.clientesService
+          .edit(this.clienteForm.value, this.clienteForm.controls['id'].value)
+          .subscribe((res) => this.router.navigateByUrl(`clientes?page=1`));
+      if (!this.isEdit)
+        this.clientesService.create(this.clienteForm.value).subscribe((res) => {
+          this.router.navigateByUrl(`clientes?page=1`);
+        });
+    }
   }
 }

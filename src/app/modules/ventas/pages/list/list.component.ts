@@ -9,14 +9,14 @@ import { Venta } from 'src/app/shared/models/venta.model';
 })
 export class ListComponent implements OnInit {
   ventas: Venta[] = [];
-  columnas: string[] = ['Fecha','Monto','Acciones']
+  columnas: string[] = ['Fecha', 'Monto', 'Acciones'];
 
   constructor(private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
       console.log(data);
-      this.ventas = data.ventas.data as Venta[];
+      if (data.ventas) this.ventas = data.ventas.data as Venta[];
     });
   }
 }

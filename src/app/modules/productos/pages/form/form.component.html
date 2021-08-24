@@ -30,10 +30,10 @@
           </mat-form-field>
           <mat-form-field class="form-field" appearance="fill">
             <mat-label>Etiquetas producto</mat-label>
-            <mat-select>
+            <mat-select matInput formControlName="etiquetas">
               <mat-option
                 *ngFor="let etiqueta of etiquetas"
-                (onSelectionChange)="addEtiqueta(etiqueta.id)"
+                [value]="etiqueta.id"
               >
                 {{ etiqueta.nombre }}
               </mat-option>
@@ -42,7 +42,7 @@
           <mat-list>
             <mat-list-item
               role="cell"
-              *ngFor="let etiqueta of removed_etiquetas"
+              *ngFor="let etiqueta of etiquetasLista"
             >
               {{ etiqueta.nombre }}
               <button
@@ -54,9 +54,12 @@
               </button>
             </mat-list-item>
 
-            <mat-error *ngIf="pushing"
-              >Maximo de tres etiquetas.</mat-error
-            >
+            <mat-error
+              ><span *ngIf="pushing">Maximo de tres etiquetas.</span>
+              <span *ngIf="isInvalid('etiquetas')"
+                >Debe agregar al menos una etiqueta</span
+              >
+            </mat-error>
           </mat-list>
         </form>
       </mat-card-content>

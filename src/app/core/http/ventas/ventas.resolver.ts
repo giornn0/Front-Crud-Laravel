@@ -32,6 +32,6 @@ export class VentaResolver implements Resolve<unknown> {
     state: RouterStateSnapshot
   ): Observable<unknown> {
     const { id } = route.params;
-    return this.ventasService.index(id);
+    return this.ventasService.getOne(id);
   }
 }

@@ -1,5 +1,5 @@
 export interface ProductoVenta {
-    id:number,
+    id?:number,
   venta_id: number;
   producto_id: number;
   precio: number;

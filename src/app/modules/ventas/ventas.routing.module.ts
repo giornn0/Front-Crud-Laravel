@@ -10,6 +10,7 @@ import { ProductosVentaResolver } from '../../core/http/productos-venta/producto
 import { ListComponent } from './pages/list/list.component';
 import { FormComponent } from './pages/form/form.component';
 import { HeaderComponent } from './components/header/header.component';
+import { ProductosVentasFormComponent } from './components/productos-ventas-form/productos-ventas-form.component';
 
 const routes: Routes = [
   {
@@ -55,4 +56,5 @@ export const routingComponents = [
   HeaderComponent,
   ListComponent,
   FormComponent,
+  ProductosVentasFormComponent
 ];

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { VentasService } from 'src/app/core/http/ventas/ventas.service';
+import { Cliente } from 'src/app/shared/models/cliente.model';
+import { ProductoVenta } from 'src/app/shared/models/producto-venta.model';
+import { Producto } from 'src/app/shared/models/producto.model';
 
 @Component({
   selector: 'app-form',
@@ -10,16 +13,52 @@ import { VentasService } from 'src/app/core/http/ventas/ventas.service';
 })
 export class FormComponent implements OnInit {
   isEdit = false;
+  clientes: Cliente[] = [];
+  productos: Producto[] = [];
+  prodListados: ProductoVenta[] = [];
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private fBuilder: FormBuilder,
-    private ventasService: VentasService
+    private ventasService: VentasService,
+    private router: Router
   ) {}
+
+  ventaForm: FormGroup = this.fBuilder.group({
+    fecha: ['', [Validators.required]],
+    cliente_id: ['', [Validators.required, Validators.pattern('')]],
+    monto: ['', [Validators.pattern('')]],
+  });
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe((data) => {
-      console.log(data);
+      // console.log(data);
+      this.clientes = data.clientes.clientes as Cliente[];
+      this.productos = data.productos as Producto[];
+      if (data.venta) {
+        this.isEdit = true;
+        this.ventaForm.reset(data.venta);
+        console.log(data.prod_en_venta, data);
+        this.prodListados = data.prod_en_venta as ProductoVenta[];
+      }
     });
+  }
+  isInvalid(field: string): boolean {
+    return !!(
+      this.ventaForm.controls[field].touched &&
+      this.ventaForm.controls[field].invalid
+    );
+  }
+  submit() {
+    if (this.ventaForm.valid) {
+      if (this.isEdit)
+        this.ventasService
+          .edit(this.ventaForm.value, this.ventaForm.controls['id'].value)
+          .subscribe((res) => this.router.navigateByUrl(`ventas?page=1`));
+      if (!this.isEdit)
+        this.ventasService.create(this.ventaForm.value).subscribe((res) => {
+          this.router.navigateByUrl(`ventas?page=1`);
+        });
+    }
   }
 }
