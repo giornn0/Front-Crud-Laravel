@@ -35,7 +35,7 @@ export class FormComponent implements OnInit {
       this.etiquetas = this.etiquetas.filter((etiqueta) => {
         if (etiqueta.id === id) {
           this.etiquetasLista.push(etiqueta);
-          this.etiquetasForm.push(etiqueta.id)
+          this.etiquetasForm.push(etiqueta.id);
           return;
         }
         return etiqueta;
@@ -46,9 +46,9 @@ export class FormComponent implements OnInit {
       if (data.producto) {
         this.isEdit = true;
         this.productoForm.reset(data.producto[0]);
-        data.producto[1].forEach((etiqueta:number )=>{
-          this.productoForm.controls['etiquetas'].setValue(etiqueta)
-        })
+        data.producto[1].forEach((etiqueta: number) => {
+          this.productoForm.controls['etiquetas'].setValue(etiqueta);
+        });
       }
     });
   }
@@ -58,11 +58,22 @@ export class FormComponent implements OnInit {
       this.productoForm.controls[field].invalid
     );
   }
-  addEtiqueta(value: number | undefined) {}
-  removeEtiqueta(value: number | undefined) {}
+  removeEtiqueta(value: Etiqueta) {
+    this.etiquetasLista = this.etiquetasLista.filter((etiqueta) => {
+      if (etiqueta == value) {
+        this.etiquetas.push(etiqueta);
+        return;
+      }
+      return etiqueta;
+    });
+    this.etiquetasForm = this.etiquetasForm.filter((ids) => {
+      if (ids === value.id) return;
+      return ids;
+    });
+  }
   submit() {
     if (this.productoForm.valid) {
-      this.productoForm.controls['etiquetas'].setValue(this.etiquetasForm)
+      console.log(this.productoForm.value);
       if (this.isEdit)
         this.productosService
           .edit(this.productoForm.value, this.productoForm.controls['id'].value)

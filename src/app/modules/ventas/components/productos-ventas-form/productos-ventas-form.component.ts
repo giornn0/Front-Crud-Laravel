@@ -25,7 +25,7 @@ export class ProductosVentasFormComponent implements OnInit {
 
   prodVentaForm: FormGroup = this.fBuilder.group({
     id: '',
-    venta_id: ['', [Validators.required]],
+    venta_id: [''],
     producto_id: ['', [Validators.required]],
     precio: ['', [Validators.required]],
     cantidad: ['', [Validators.required]],
@@ -33,9 +33,34 @@ export class ProductosVentasFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.prodEnLista) {
+    if (this.prodEnLista.id) {
       console.log('prod  en lista');
       this.prodVentaForm.reset(this.prodEnLista);
+      this.isListed = true
     }
+    this.prodVentaForm.controls['precio'].valueChanges.subscribe((precio) =>
+      this.prodVentaForm.controls['total'].setValue(
+        precio * this.prodVentaForm.controls['cantidad'].value
+      )
+    );
+    this.prodVentaForm.controls['cantidad'].valueChanges.subscribe((cantidad) =>
+      this.prodVentaForm.controls['total'].setValue(
+        cantidad * this.prodVentaForm.controls['precio'].value
+      )
+    );
+  }
+
+  isInvalid(field: string): boolean {
+    return !!(
+      this.prodVentaForm.controls[field].touched &&
+      this.prodVentaForm.controls[field].invalid
+    );
+  }
+
+  addOrEditProducto() {
+    console.log(this.prodVentaForm.value);
+  }
+  deleteProducto(){
+
   }
 }

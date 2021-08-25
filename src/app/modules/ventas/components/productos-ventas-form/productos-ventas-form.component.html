@@ -1,1 +1,35 @@
-<p>productos-ventas-form works!</p>
+  <form
+  [formGroup]="prodVentaForm"
+  id="ngProdVentaForm"
+  (ngSubmit)="addOrEditProducto()"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  >
+  <mat-form-field class="form-field" appearance="fill" fxFlex="30">
+    <mat-label>Producto</mat-label>
+    <mat-select matInput formControlName="producto_id">
+      <mat-option *ngFor="let producto of productos" [value]="producto.id">{{
+        producto.nombre
+      }}</mat-option>
+    </mat-select>
+    <mat-error *ngIf="isInvalid('producto_id')"
+      >Ete campo es requerido</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill" fxFlex="15">
+    <mat-label>Cantidad</mat-label>
+    <input matInput type="number" formControlName="cantidad" />
+    <mat-error *ngIf="isInvalid('cantidad')"></mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill" fxFlex="15">
+    <mat-label>Precio</mat-label>
+    <input matInput type="number" formControlName="precio" />
+    <mat-error *ngIf="isInvalid('precio')">Este campo es requerido.</mat-error>
+  </mat-form-field>
+  <mat-form-field class="form-field" appearance="fill" fxFlex="20">
+    <mat-label>Total</mat-label>
+    <input matInput type="number" formControlName="total" />
+  </mat-form-field>
+  <button fxFlex="10" fxFlexAlign="start" style="height:75px" type="submit" form="ngProdVentaForm" ><mat-icon>{{isListed?'edit':'add_circle'}}</mat-icon></button>
+  <button  fxFlex="10"  fxFlexAlign="start" style="height:75px"type="submit" form="ngProdVentaForm" (click)="deleteProducto()" *ngIf="isListed"><mat-icon>delete</mat-icon></button>
+</form>
