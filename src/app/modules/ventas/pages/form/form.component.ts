@@ -25,9 +25,10 @@ export class FormComponent implements OnInit {
   ) {}
 
   ventaForm: FormGroup = this.fBuilder.group({
+    id: '',
     fecha: ['', [Validators.required]],
     cliente_id: ['', [Validators.required, Validators.pattern('')]],
-    monto: ['', [Validators.pattern('')]],
+    monto: [0, [Validators.pattern('')]],
   });
 
   ngOnInit(): void {
@@ -38,8 +39,7 @@ export class FormComponent implements OnInit {
       if (data.venta) {
         this.isEdit = true;
         this.ventaForm.reset(data.venta);
-        console.log(data.prod_en_venta, data);
-        this.prodListados = data.prod_en_venta as ProductoVenta[];
+        this.prodListados = Object.values(data.prod_en_venta);
       }
     });
   }
@@ -49,16 +49,28 @@ export class FormComponent implements OnInit {
       this.ventaForm.controls[field].invalid
     );
   }
+  pushProducto(producto: ProductoVenta) {
+    this.prodListados.push(producto);
+    this.ventaForm.controls['monto'].setValue(this.ventaForm.controls['monto'].value+producto.total);
+  }
+  removeProducto(producto: ProductoVenta){
+    
+  }
   submit() {
     if (this.ventaForm.valid) {
       if (this.isEdit)
         this.ventasService
           .edit(this.ventaForm.value, this.ventaForm.controls['id'].value)
-          .subscribe((res) => this.router.navigateByUrl(`ventas?page=1`));
+          .subscribe((res: any) => {
+            // this.router.navigateByUrl(`ventas?page=1`);
+          });
       if (!this.isEdit)
-        this.ventasService.create(this.ventaForm.value).subscribe((res) => {
-          this.router.navigateByUrl(`ventas?page=1`);
-        });
+        this.ventasService
+          .create(this.ventaForm.value)
+          .subscribe((res: any) => {
+            this.ventaForm.controls['id'].setValue(res.venta.id);
+            // this.router.navigateByUrl(`ventas?page=1`);
+          });
     }
   }
 }

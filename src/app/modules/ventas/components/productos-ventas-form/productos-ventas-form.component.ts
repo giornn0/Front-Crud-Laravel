@@ -13,13 +13,13 @@ import { Producto } from 'src/app/shared/models/producto.model';
 export class ProductosVentasFormComponent implements OnInit {
   @Input() productos: Producto[] = [];
   @Input() prodEnLista: ProductoVenta = {} as ProductoVenta;
+  @Input() id = '';
   @Output() addProducto: EventEmitter<ProductoVenta> = new EventEmitter();
-  @Output() editProducto: EventEmitter<ProductoVenta> = new EventEmitter();
 
   isListed = false;
 
   constructor(
-    private prodVenta: ProductosVentaService,
+    private prodVentaService: ProductosVentaService,
     private fBuilder: FormBuilder
   ) {}
 
@@ -33,11 +33,6 @@ export class ProductosVentasFormComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    if (this.prodEnLista.id) {
-      console.log('prod  en lista');
-      this.prodVentaForm.reset(this.prodEnLista);
-      this.isListed = true
-    }
     this.prodVentaForm.controls['precio'].valueChanges.subscribe((precio) =>
       this.prodVentaForm.controls['total'].setValue(
         precio * this.prodVentaForm.controls['cantidad'].value
@@ -48,6 +43,13 @@ export class ProductosVentasFormComponent implements OnInit {
         cantidad * this.prodVentaForm.controls['precio'].value
       )
     );
+    if (this.prodEnLista.id) {
+      this.prodVentaForm.reset(this.prodEnLista);
+      this.isListed = true;
+    }
+    this.prodVentaForm.valueChanges.subscribe((form) => {
+      this.prodEnLista = form;
+    });
   }
 
   isInvalid(field: string): boolean {
@@ -58,9 +60,23 @@ export class ProductosVentasFormComponent implements OnInit {
   }
 
   addOrEditProducto() {
-    console.log(this.prodVentaForm.value);
+    console.log(this.prodEnLista, this.isListed);
+    if (this.prodVentaForm.valid) {
+      if (this.isListed)
+        this.prodVentaService
+          .updateProducto(this.prodVentaForm.value)
+          .subscribe((res) => {
+            console.log(res);
+          });
+      if (!this.isListed) {
+        this.prodVentaForm.controls['venta_id'].setValue(parseInt(this.id));
+        this.prodVentaService
+          .chargeProducto(this.prodVentaForm.value)
+          .subscribe((res: any) => {
+            this.addProducto.emit(res.prodCargado);
+          });
+      }
+    }
   }
-  deleteProducto(){
-
-  }
+  deleteProducto() {}
 }

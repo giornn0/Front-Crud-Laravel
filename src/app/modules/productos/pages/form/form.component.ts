@@ -73,6 +73,7 @@ export class FormComponent implements OnInit {
   }
   submit() {
     if (this.productoForm.valid) {
+      this.productoForm.controls['etiquetas'].setValue(this.etiquetasForm)
       console.log(this.productoForm.value);
       if (this.isEdit)
         this.productosService
