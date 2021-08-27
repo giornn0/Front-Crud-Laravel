@@ -51,11 +51,11 @@ export class FormComponent implements OnInit {
   }
   pushProducto(producto: ProductoVenta) {
     this.prodListados.push(producto);
-    this.ventaForm.controls['monto'].setValue(this.ventaForm.controls['monto'].value+producto.total);
+    this.ventaForm.controls['monto'].setValue(
+      this.ventaForm.controls['monto'].value + producto.total
+    );
   }
-  removeProducto(producto: ProductoVenta){
-    
-  }
+  removeProducto(producto: ProductoVenta) {}
   submit() {
     if (this.ventaForm.valid) {
       if (this.isEdit)
@@ -68,6 +68,7 @@ export class FormComponent implements OnInit {
         this.ventasService
           .create(this.ventaForm.value)
           .subscribe((res: any) => {
+            console.log(res);
             this.ventaForm.controls['id'].setValue(res.venta.id);
             // this.router.navigateByUrl(`ventas?page=1`);
           });

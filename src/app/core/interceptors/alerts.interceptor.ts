@@ -20,21 +20,21 @@ export class AlertsInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     
     return next.handle(request)
-    // .pipe(
-    //   tap(
-    //     (res: HttpEvent<any>) => {
-    //       if (res instanceof HttpResponse) {
-    //         if (res.body.logged)
-    //           this.alertsService.success('Successfully loged');
-    //         if (res.body && res.body.message) {
-    //           this.alertsService.success(res.body.message);
-    //         }
-    //       }
-    //     },
-    //     (error) => {
-    //       this.alertsService.error(error.error.message);
-    //     }
-    //   )
-    // );
+    .pipe(
+      tap(
+        (res: HttpEvent<any>) => {
+          if (res instanceof HttpResponse) {
+            // if (res.body.logged)
+            //   this.alertsService.success('Successfully loged');
+            if (res.body && res.body.message) {
+              this.alertsService.success(res.body.message);
+            }
+          }
+        },
+        (error) => {
+          this.alertsService.error(error.error.message);
+        }
+      )
+    );
   }
 }

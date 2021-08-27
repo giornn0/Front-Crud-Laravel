@@ -25,6 +25,12 @@
         <tr mat-header-row *matHeaderRowDef="columnas"></tr>
         <tr mat-row *matRowDef="let row; columns: columnas"></tr>
       </table>
+      <mat-paginator
+      [pageSize]="5"
+      [length]="total"
+      [pageIndex]="currentPage!-1"
+      (page)="pageChangeEvent($event)"
+    ></mat-paginator>
     </div>
     <mat-icon class="form-icon">assignment_ind</mat-icon>
   </div>

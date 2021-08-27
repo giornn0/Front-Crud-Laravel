@@ -47,7 +47,9 @@ export class FormComponent implements OnInit {
       if (this.isEdit)
         this.clientesService
           .edit(this.clienteForm.value, this.clienteForm.controls['id'].value)
-          .subscribe((res) => this.router.navigateByUrl(`clientes?page=1`));
+          .subscribe((res) => {
+            this.router.navigateByUrl(`clientes?page=1`);
+          });
       if (!this.isEdit)
         this.clientesService.create(this.clienteForm.value).subscribe((res) => {
           this.router.navigateByUrl(`clientes?page=1`);

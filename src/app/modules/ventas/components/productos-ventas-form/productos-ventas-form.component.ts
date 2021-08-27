@@ -49,6 +49,7 @@ export class ProductosVentasFormComponent implements OnInit {
     }
     this.prodVentaForm.valueChanges.subscribe((form) => {
       this.prodEnLista = form;
+      console.log(this.id)
     });
   }
 
