@@ -25,6 +25,7 @@
             [section]="'productos'"
             [name]="element.nombre"
             [id]="element.id"
+            (erase)="delete($event)"
           ></app-button-actions>
         </td>
       </ng-container>

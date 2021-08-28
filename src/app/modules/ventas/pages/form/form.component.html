@@ -16,8 +16,6 @@
           <form
             fxFlex="60"
             [formGroup]="ventaForm"
-            id="ngVentaForm"
-            (ngSubmit)="submit()"
             fxLayout="column"
           >
             <mat-form-field class="form-field" appearance="fill">
@@ -43,7 +41,7 @@
             </mat-form-field>
             <mat-form-field class="form-field" appearance="fill">
               <mat-label>Monto</mat-label>
-              <input matInput type="number" formControlName="monto" />
+              <input matInput  formControlName="monto" />
               <mat-error *ngIf="isInvalid('monto')"
                 >Este campo es invalido.</mat-error
               >
@@ -53,18 +51,16 @@
                 fxFlex="50"
                 mat-raised-button
                 color="warn"
-                [routerLink]="['/ventas']"
-                [queryParams]="{ page: '1' }"
+                (click)="cancel()"
               >
                 Cancelar
               </button>
               <button
                 fxFlex="50"
                 mat-raised-button
-                type="submit"
                 color="primary"
-                form="ngVentaForm"
-              >
+              (click)="submit()"
+                >
                 {{ isEdit ? "Confirmar" : "Crear" }}
               </button>
             </mat-card-footer>
@@ -91,8 +87,7 @@
         fxFlex="100"
         mat-raised-button
         color="warn"
-        [routerLink]="['/ventas']"
-        [queryParams]="{ page: '1' }"
+        (click)="terminar()"
       >
         Terminar
       </button>

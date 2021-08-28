@@ -5,6 +5,7 @@ import { VentasService } from 'src/app/core/http/ventas/ventas.service';
 import { Cliente } from 'src/app/shared/models/cliente.model';
 import { ProductoVenta } from 'src/app/shared/models/producto-venta.model';
 import { Producto } from 'src/app/shared/models/producto.model';
+import { Venta } from 'src/app/shared/models/venta.model';
 
 @Component({
   selector: 'app-form',
@@ -16,6 +17,7 @@ export class FormComponent implements OnInit {
   clientes: Cliente[] = [];
   productos: Producto[] = [];
   prodListados: ProductoVenta[] = [];
+  venta: Venta = {} as Venta;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -28,7 +30,7 @@ export class FormComponent implements OnInit {
     id: '',
     fecha: ['', [Validators.required]],
     cliente_id: ['', [Validators.required, Validators.pattern('')]],
-    monto: [0, [Validators.pattern('')]],
+    monto: [{ value: 0, disabled: true }, [Validators.pattern('')]],
   });
 
   ngOnInit(): void {
@@ -38,10 +40,21 @@ export class FormComponent implements OnInit {
       this.productos = data.productos as Producto[];
       if (data.venta) {
         this.isEdit = true;
+        this.venta = data.venta;
         this.ventaForm.reset(data.venta);
-        this.prodListados = Object.values(data.prod_en_venta);
+        // this.ventaForm.controls['monto']= data.prod_en_venta
+        this.prodListados = Object.values(
+          data.prod_en_venta
+        ) as ProductoVenta[];
+        this.prodListados.forEach((prod) => {
+          this.ventaForm.controls['monto'].setValue(
+            prod.total + this.ventaForm.controls['monto'].value
+          );
+          this.venta.monto = this.ventaForm.controls['monto'].value;
+        });
       }
     });
+    this.ventaForm.valueChanges.subscribe((form) => (this.venta = form));
   }
   isInvalid(field: string): boolean {
     return !!(
@@ -54,24 +67,35 @@ export class FormComponent implements OnInit {
     this.ventaForm.controls['monto'].setValue(
       this.ventaForm.controls['monto'].value + producto.total
     );
+    this.venta.monto = this.ventaForm.controls['monto'].value;
   }
   removeProducto(producto: ProductoVenta) {}
   submit() {
     if (this.ventaForm.valid) {
-      if (this.isEdit)
+      if (this.isEdit) {
         this.ventasService
-          .edit(this.ventaForm.value, this.ventaForm.controls['id'].value)
-          .subscribe((res: any) => {
-            // this.router.navigateByUrl(`ventas?page=1`);
-          });
-      if (!this.isEdit)
-        this.ventasService
-          .create(this.ventaForm.value)
-          .subscribe((res: any) => {
-            console.log(res);
-            this.ventaForm.controls['id'].setValue(res.venta.id);
-            // this.router.navigateByUrl(`ventas?page=1`);
-          });
+          .edit(this.venta, this.venta.id!)
+          .subscribe((res: any) => {});
+      }
+      if (!this.isEdit) {
+        this.venta.monto = 0;
+        this.ventasService.create(this.venta).subscribe((res: any) => {
+          this.ventaForm.controls['id'].setValue(res.venta.id);
+          this.router.navigateByUrl(`ventas/editar/${res.venta.id}`);
+        });
+      }
     }
+  }
+  terminar() {
+    if (this.isEdit)
+      this.ventasService
+        .edit(this.ventaForm.value, this.ventaForm.controls['id'].value)
+        .subscribe((res) => this.router.navigateByUrl(`/ventas?page=1`));
+    else {
+      this.router.navigateByUrl(`/ventas?page=1`);
+    }
+  }
+  cancel() {
+    this.router.navigateByUrl(`/ventas?page=1`);
   }
 }

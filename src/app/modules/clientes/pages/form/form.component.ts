@@ -24,7 +24,7 @@ export class FormComponent implements OnInit {
     apellido: ['', [Validators.required, Validators.maxLength(55)]],
     email: [
       '',
-      [Validators.required, Validators.maxLength(55), Validators.email],
+      [Validators.required, Validators.maxLength(55), Validators.pattern(/[a-zA-Z-.0-9]+@[a-zA-Z-]+\.(com|edu|net)/)],
     ],
   });
 
@@ -33,6 +33,7 @@ export class FormComponent implements OnInit {
       if (data.cliente) {
         this.isEdit = true;
         this.clienteForm.reset(data.cliente);
+        this.clienteForm.controls['email'].disable()
       }
     });
   }
